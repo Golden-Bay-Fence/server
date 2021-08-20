@@ -13,11 +13,6 @@
 		<?php if ($theme->getiTunesAppId() !== '') { ?>
 		<meta name="apple-itunes-app" content="app-id=<?php p($theme->getiTunesAppId()); ?>">
 		<?php } ?> 
-		<?php
-	$gbfagent = $_SERVER['HTTP_USER_AGENT'];
-	if(strpos($gbfagent, 'GBFUSER') !== true) { ?>
-		<link rel="stylesheet" href="https://cdn.tanners.space/titlebar.css">
-<?php } ?>
 	
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -171,11 +166,11 @@ html, body {
         <!--<div class="ui-titleicon"></div>-->
         <div class="ui-titletext">Golden Bay Fence Cloud</div>
         <div class="ui-titlecontrols">
-            <button class="ui-btn minimize">
+            <button class="ui-btn minimize" id="uiminibt">
                 <svg x="0px" y="0px" viewBox="0 0 10.2 1"><rect x="0" y="50%" width="10.2" height="1" /></svg>
-            </button><button class="ui-btn maximize">
+            </button><button class="ui-btn maximize" id="uimaxbt">
                 <svg viewBox="0 0 10 10"><path d="M0,0v10h10V0H0z M9,9H1V1h8V9z" /></svg>
-            </button><button class="ui-btn close">
+            </button><button class="ui-btn close" id="uiclsbt">
                 <svg viewBox="0 0 10 10"><polygon points="10.2,0.7 9.5,0 5.1,4.4 0.7,0 0,0.7 4.4,5.1 0,9.5 0.7,10.2 5.1,5.8 9.5,10.2 10.2,9.5 5.8,5.1" /></svg>
             </button>
         </div>
@@ -331,6 +326,15 @@ html, body {
 		<div id="content" class="app-<?php p($_['appid']) ?>" role="main">
 			<?php print_unescaped($_['content']); ?>
 		</div>
-
+		<?php
+	$agent = $_SERVER['HTTP_USER_AGENT'];
+	if(strpos($agent, 'GBFUSER') !== false) { ?>
+<script type="text/javascript">
+//add this to nc jsinsert app
+document.getElementById('uiminibt').addEventListener('click', () => windowControls.minimize())
+document.getElementById('uimaxbt').addEventListener('click', () => windowControls.maximize())
+document.getElementById('uiclsbt').addEventListener('click', () => windowControls.close())
+</script>
+<?php } ?>
 	</body>
 </html>
